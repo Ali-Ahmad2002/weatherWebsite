@@ -3,14 +3,12 @@
     <div>
         <input #city type="text" placeholder="City">
         <button (click)="searchCities(city.value)">Search</button>
-        <div class="dataContainer" *ngFor="let current of service.currentWeather; let i=index">
-            <h1> {{current.name}} </h1>
-            <span>Aktuelle Temp: {{current.main.temp}} </span>
-            <span>Höchste Temp: {{ current.main.temp_max }} </span>
-            <span>Niedrigste Temp: {{ current.main.temp_min }} </span>
+        <div class="dataContainer" *ngFor="let weekly of service.weeklyWeather; let i=index">
+            <h2> {{weekly.city.name}} </h2>
+            <div *ngFor="let weather of weekly.list; let j=index">
+                <span> {{ j }}. <b>{{ weather.dt_txt }}</b> </span>
+            </div>
         </div>
     </div>
-
-
 
 </div>

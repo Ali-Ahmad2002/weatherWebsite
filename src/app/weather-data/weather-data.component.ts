@@ -13,16 +13,16 @@ export class WeatherDataComponent implements OnInit {
   constructor(public service: DataServiceService) { }
 
   ngOnInit(): void {
-    this.service.loadCurrentData();
+    // this.service.loadCurrentData();
     this.service.loadWeeklyWeather();
   }
 
   searchCities(id: any) {
     console.log('city', id);
-    this.service.currentWeather = [];
+    // this.service.currentWeather = [];
     this.service.weeklyWeather = [];
     this.service.city = id;
-    this.service.loadCurrentData();
+    // this.service.loadCurrentData();
     this.service.loadWeeklyWeather();
   }
 
