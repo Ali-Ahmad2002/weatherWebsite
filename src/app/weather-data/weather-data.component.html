@@ -22,7 +22,7 @@
 
         <div class="dataContainer" *ngFor="let weekly of service.weeklyWeather; let i=index">
             <div class="list_container" *ngFor="let weather of weekly.list; let j=index">
-                <span> {{ showDay(weather.dt) }} </span>
+                <span> {{ weather.dt_txt | date: 'MMM d, y ' }} </span>
                 <span style="margin-right: 32px;"><b>{{ showListTemp(weather.main.temp) }} °C</b> </span>
                 <div class="list_max_min_Temp">
                     <span>H:<b>{{ showListTemp(weather.main.temp_max) }} </b> °C</span>
