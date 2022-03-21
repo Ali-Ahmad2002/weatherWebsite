@@ -15,15 +15,19 @@
                 <span>H: {{ showTempMax(current.main.temp_max) }} °C <b>/</b></span>
                 <span>T: {{ showMinTemp(current.main.temp_min) }} °C</span>
             </div>
-            
+
             <p> {{ current.weather[0].description }} </p>
             <img src="http://openweathermap.org/img/wn/{{ current.weather[0].icon }}@2x.png">
         </div>
 
         <div class="dataContainer" *ngFor="let weekly of service.weeklyWeather; let i=index">
-            <div *ngFor="let weather of weekly.list; let j=index">
-                <span> {{ j }}. <b>{{ showDay(weather.dt_txt) }}</b> </span>
-                <span> {{ weather.main.temp }} °C </span>
+            <div class="list_container" *ngFor="let weather of weekly.list; let j=index">
+                <span> {{ showDay(weather.dt) }} </span>
+                <span style="margin-right: 32px;"><b>{{ showListTemp(weather.main.temp) }} °C</b> </span>
+                <div class="list_max_min_Temp">
+                    <span>H:<b>{{ showListTemp(weather.main.temp_max) }} </b> °C</span>
+                    <span>T: <b>{{ showListTemp(weather.main.temp_min) }} </b>°C</span>
+                </div>
             </div>
         </div>
     </div>

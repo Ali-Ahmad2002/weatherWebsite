@@ -39,14 +39,16 @@ export class WeatherDataComponent implements OnInit {
     return minTemp.toFixed(0);
   }
 
+  showListTemp(listMaxTemp: any) {
+    return listMaxTemp.toFixed(0);
+  }
+
   showDay(day: any) {
+    console.log('apiDay', day);
+    let getDays = new Date().getDate();
+    console.log('day', getDays);
+    return getDays
 
-
-    let currentDay = new Date().getTime();
-    let pastDay = currentDay - new Date().getTime();
-    let test = pastDay * new Date().getDay();
-    console.log(test);
-    // return this.getDays(currentDate);
   }
 
   getDays(currentDate: any) {
