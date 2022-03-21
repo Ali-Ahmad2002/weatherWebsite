@@ -1,12 +1,29 @@
-<div>
+<div class="main_container">
 
-    <div>
+    <div class="input_container">
         <input #city type="text" placeholder="City">
-        <button (click)="searchCities(city.value)">Search</button>
+        <button (click)="searchCities(city.value)" (click)="city.value=''">Search</button>
+    </div>
+
+    <div class="weather_container">
+
+        <div class="current_weather_container" *ngFor="let current of service.currentWeather">
+            <h3> {{ current.name }} / {{ current.sys.country }} </h3>
+            <h1> {{ showCurrentWeather(current.main.temp) }} °C</h1>
+
+            <div class="max_min_temp_container">
+                <span>H: {{ showTempMax(current.main.temp_max) }} °C <b>/</b></span>
+                <span>T: {{ showMinTemp(current.main.temp_min) }} °C</span>
+            </div>
+            
+            <p> {{ current.weather[0].description }} </p>
+            <img src="http://openweathermap.org/img/wn/{{ current.weather[0].icon }}@2x.png">
+        </div>
+
         <div class="dataContainer" *ngFor="let weekly of service.weeklyWeather; let i=index">
-            <h2> {{weekly.city.name}} </h2>
             <div *ngFor="let weather of weekly.list; let j=index">
-                <span> {{ j }}. <b>{{ weather.dt_txt }}</b> </span>
+                <span> {{ j }}. <b>{{ showDay(weather.dt_txt) }}</b> </span>
+                <span> {{ weather.main.temp }} °C </span>
             </div>
         </div>
     </div>
