@@ -12,6 +12,8 @@ export class DataServiceService {
 
   currentWeather: any = [];
   weeklyWeather: any = [];
+  lat: string = '52.5244';
+  lon: string = '13.4105';
 
   constructor() { }
 
@@ -20,7 +22,7 @@ export class DataServiceService {
   }
 
   getWeeklyWeather(lat: any, lon: any) {
-    return fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${this.key}`);
+    return fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${this.key}&units=metric`);
     // return fetch(`http://api.openweathermap.org/data/2.5/forecast?q=${this.city}&dt=${this.time}&appid=${this.key}&units=metric`);
   }
 
@@ -28,22 +30,19 @@ export class DataServiceService {
   loadCurrentData() {
     this.getCurrentWeather().then(async (response: any) => {
       let responseAsJson = await response.json();
-      console.log('current', responseAsJson);
       this.currentWeather.push(responseAsJson);
-      console.log(this.currentWeather[0].coord.lat)
-      console.log(this.currentWeather[0].coord.lon)
-      this.loadWeeklyWeather();
+      this.lat = this.currentWeather[0].coord.lat;
+      this.lon = this.currentWeather[0].coord.lon;
+      console.log('current', this.currentWeather);
+      
     });
   }
 
   loadWeeklyWeather() {
-   
-    console.log(this.currentWeather[0].coord.lat)
-    this.getWeeklyWeather(this.currentWeather[0].coord.lat, this.currentWeather.coord.lon).then(async (response: any) => {
+    this.getWeeklyWeather(this.lat, this.lon).then(async (response: any) => {
       let responseAsJson = await response.json();
       this.weeklyWeather.push(responseAsJson);
       console.log('weekly', this.weeklyWeather);
-      console.log('json', responseAsJson);
     })
   }
 }

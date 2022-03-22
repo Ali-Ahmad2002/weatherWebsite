@@ -18,11 +18,12 @@ export class WeatherDataComponent implements OnInit {
     this.service.loadWeeklyWeather();
   }
 
-  searchCities(id: any) {
-    console.log('city', id);
+  searchCities(id: any, lat: any, lon: any) {
+    console.log('LAT POS', lat);
     this.service.currentWeather = [];
     this.service.weeklyWeather = [];
     this.service.city = id;
+
     this.service.loadCurrentData();
     this.service.loadWeeklyWeather();
   }

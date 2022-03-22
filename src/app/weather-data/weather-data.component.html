@@ -2,7 +2,9 @@
 
     <div class="input_container">
         <input #city type="text" placeholder="City">
-        <button (click)="searchCities(city.value)" (click)="city.value=''">Search</button>
+        <button
+            (click)="searchCities(city.value, service.currentWeather[0].coord.lat,service.currentWeather[0].coord.lon)"
+            (click)="city.value=''">Search</button>
     </div>
 
     <div class="weather_container">
@@ -21,14 +23,7 @@
         </div>
 
         <div class="dataContainer" *ngFor="let weekly of service.weeklyWeather; let i=index">
-            <div class="list_container" *ngFor="let weather of weekly.list; let j=index">
-                <span> {{ weather.dt_txt | date: 'MMM d, y ' }} </span>
-                <span style="margin-right: 32px;"><b>{{ showListTemp(weather.main.temp) }} °C</b> </span>
-                <div class="list_max_min_Temp">
-                    <span>H:<b>{{ showListTemp(weather.main.temp_max) }} </b> °C</span>
-                    <span>T: <b>{{ showListTemp(weather.main.temp_min) }} </b>°C</span>
-                </div>
-            </div>
+
         </div>
     </div>
 
