@@ -23,7 +23,9 @@
         </div>
 
         <div class="dataContainer" *ngFor="let weekly of service.weeklyWeather; let i=index">
-
+            <!-- <div *ngFor="let dailyData of service.weeklyWeather[0].daily">
+                <span> {{ showDate(dailyData.dt) | date: 'MMM d, y ' }} </span>
+            </div> -->
         </div>
     </div>
 
