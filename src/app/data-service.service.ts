@@ -17,6 +17,7 @@ export class DataServiceService {
   constructor() { }
 
   getCurrentWeather() {
+    console.log(this.city);
     return fetch(`http://api.openweathermap.org/data/2.5/weather?q=${this.city}&APPID=${this.key}&units=metric`);
   }
 
@@ -26,24 +27,47 @@ export class DataServiceService {
     // return fetch(`http://api.openweathermap.org/data/2.5/forecast?q=${this.city}&dt=${this.time}&appid=${this.key}&units=metric`);
   }
 
-
-  loadCurrentData() {
-
-    this.getCurrentWeather().then(async (response: any) => {
-      let responseAsJson = await response.json();
-      this.currentWeather.push(responseAsJson);
-      this.lat = await this.currentWeather[0].coord.lat;
-      this.lon = await this.currentWeather[0].coord.lon;
-      console.log('current', this.currentWeather);
-    });
+  async loadData() {
+    await this.loadCurrentData();
+    await this.loadWeeklyWeather();
   }
 
-  loadWeeklyWeather() {
-
-    this.getWeeklyWeather(this.lat, this.lon).then(async (response: any) => {
-      let responseAsJson = await response.json();
-      this.weeklyWeather.push(responseAsJson);
-      console.log('weekly', this.weeklyWeather);
-    })
+  async loadCurrentData() {
+    const response = await this.getCurrentWeather();
+    const responseAsJson = await response.json();
+    this.currentWeather.push(responseAsJson);
+    this.lat = this.currentWeather[0].coord.lat;
+    this.lon = this.currentWeather[0].coord.lon;
+    console.log('Current', this.currentWeather);
   }
+
+  async loadWeeklyWeather() {
+    const response = await this.getWeeklyWeather(this.lat, this.lon);
+    const responseAsJson = await response.json();
+    this.weeklyWeather.push(responseAsJson);
+    console.log('weekly', this.weeklyWeather);
+  }
+
+
+  //Second Variant 
+  // loadCurrentData() {
+
+  //   this.getCurrentWeather().then(async (response: any) => {
+  //     let responseAsJson = await response.json();
+  //     this.currentWeather.push(responseAsJson);
+  //     this.lat = this.currentWeather[0].coord.lat;
+  //     this.lon = this.currentWeather[0].coord.lon;
+  //     console.log('current', this.currentWeather);
+  //     this.loadWeeklyWeather();
+  //   });
+  // }
+
+  // loadWeeklyWeather() {
+
+  //   this.getWeeklyWeather(this.lat, this.lon).then(async (response: any) => {
+  //     let responseAsJson = await response.json();
+  //     this.weeklyWeather.push(responseAsJson);
+  //     console.log('weekly', this.weeklyWeather);
+  //   })
+  // }
 }

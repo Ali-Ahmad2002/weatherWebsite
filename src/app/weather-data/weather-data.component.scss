@@ -1,10 +1,15 @@
 .main_container {
-    padding-top: 1rem;
+    height: 100vh;
+    width: 50%;
+    overflow-y: auto;
 }
 
 .dataContainer {
     display: flex;
     flex-direction: column;
+    width: 100%;
+    align-items: center;
+    padding-bottom: 48px;
     span {
         font-size: 2rem;
     }
@@ -13,6 +18,10 @@
 .input_container {
     display: flex;
     justify-content: center;
+    padding-top: 32px;
+    button {
+        height: calc(70.88px - 1.34375em);
+    }
 }
 
 .weather_container {
@@ -61,4 +70,34 @@
 .list_max_min_Temp {
     display: flex;
     justify-content: flex-end;
+}
+
+.daily_info_container {
+    display: flex;
+    align-items: center;
+    width: 75%;
+    justify-content: space-between;
+    span {
+        font-size: 24px !important;
+        width: 139.59px;
+    }
+    p {
+        font-size: 24px;
+        margin: 0;
+    }
+    mat-progress-bar {
+        height: 16px;
+        width: 100px;
+    }
+}
+
+.progress_container {
+    width: 20%;
+    display: flex;
+    justify-content: center;
+}
+
+.temp_container {
+    width: 11%;
+    text-align: center;
 }

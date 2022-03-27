@@ -1,21 +1,26 @@
 <div class="main_container">
 
     <div class="input_container">
-        <input #city type="text" placeholder="City">
-        <button
-            (click)="searchCities(city.value, service.currentWeather[0].coord.lat,service.currentWeather[0].coord.lon)"
-            (click)="city.value=''">Search</button>
+        <mat-form-field class="example-form-field" appearance="fill">
+            <mat-label>Clearable input</mat-label>
+            <input matInput type="text" [(ngModel)]="value">
+            <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+          <button mat-raised-button color="primary" (click)="searchCities(value)" (click)="value=''">Search</button>
+        <!-- <button >Search</button> -->
     </div>
 
     <div class="weather_container">
 
         <div class="current_weather_container" *ngFor="let current of service.currentWeather">
             <h3> {{ current.name }} / {{ current.sys.country }} </h3>
-            <h1> {{ showCurrentWeather(current.main.temp) }} °C</h1>
+            <h1> {{ showTemp(current.main.temp) }} °C</h1>
 
             <div class="max_min_temp_container">
-                <span>H: {{ showTempMax(current.main.temp_max) }} °C <b>/</b></span>
-                <span>T: {{ showMinTemp(current.main.temp_min) }} °C</span>
+                <span>H: {{ showTemp(current.main.temp_max) }} °C <b>/</b></span>
+                <span>T: {{ showTemp(current.main.temp_min) }} °C</span>
             </div>
 
             <p> {{ current.weather[0].description }} </p>
@@ -23,9 +28,26 @@
         </div>
 
         <div class="dataContainer" *ngFor="let weekly of service.weeklyWeather; let i=index">
-            <!-- <div *ngFor="let dailyData of service.weeklyWeather[0].daily">
-                <span> {{ showDate(dailyData.dt) | date: 'MMM d, y ' }} </span>
-            </div> -->
+            <div class="daily_info_container" *ngFor="let day of weekly.daily">
+                <span> {{ showDate(day.dt) | date: 'MMM d, y ' }} </span>
+
+                <div class="temp_container">
+                    <p> H:<b>{{ showTemp(day.temp.max) }}°C</b></p>
+                </div>
+                <div class="progress_container">
+                    <!-- <p>{{ showAverage(day.temp.max, day.temp.min) }}</p> -->
+                    <mat-progress-bar mode="determinate" value="{{ showAverage(day.temp.max, day.temp.min) }}">
+                    </mat-progress-bar>
+                </div>
+
+                <div>
+                    <p> T:<b>{{ showTemp(day.temp.min) }}°C</b> </p>
+                </div>
+
+
+
+                <img src="http://openweathermap.org/img/wn/{{ day.weather[0].icon }}@2x.png">
+            </div>
         </div>
     </div>
 

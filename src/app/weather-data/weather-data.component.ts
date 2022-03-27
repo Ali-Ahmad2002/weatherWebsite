@@ -9,6 +9,7 @@ import { DataServiceService } from '../data-service.service';
 })
 export class WeatherDataComponent implements OnInit {
 
+  value = '';
 
 
   constructor(public service: DataServiceService) { }
@@ -18,56 +19,27 @@ export class WeatherDataComponent implements OnInit {
     this.service.loadWeeklyWeather();
   }
 
-  searchCities(id: any, lat: any, lon: any) {
-    console.log('LAT POS', lat);
+  async searchCities(value: any) {
     this.service.currentWeather = [];
     this.service.weeklyWeather = [];
-    this.service.city = id;
+    this.service.city = value;
 
-    this.service.loadCurrentData();
-    this.service.loadWeeklyWeather();
+    await this.service.loadData();
+
   }
 
-  showCurrentWeather(temp: any) {
+  showTemp(temp: any) {
     return temp.toFixed(0);
   }
 
-  showTempMax(maxTemp: any) {
-    return maxTemp.toFixed(0);
-  }
-
-  showMinTemp(minTemp: any) {
-    return minTemp.toFixed(0);
-  }
-
-  showListTemp(listMaxTemp: any) {
-    return listMaxTemp.toFixed(0);
-  }
-
   showDate(day: any) {
-
-    let date = new Date();
-    console.log('apiDay', date);
-    return date
+    let today = new Date(day * 1000);
+    return today
   }
 
-  getDays(currentDate: any) {
-    if (currentDate == 1) {
-      return 'Mo'
-    } else if (currentDate == 2) {
-      return 'Tue'
-    } else if (currentDate == 3) {
-      return 'Wed'
-    } else if (currentDate == 4) {
-      return 'Thu'
-    } else if (currentDate == 5) {
-      return 'Fr'
-    } else if (currentDate == 6) {
-      return 'Sat'
-    } else if (currentDate == 7) {
-      return 'Sun'
-    }
-    return currentDate;
+  showAverage(max: any, min: any) {
+    let average = (max + min) / 2;
+    return average.toFixed(0);
   }
 
 
