@@ -32,7 +32,7 @@
                 <span> {{ showDate(day.dt) | date: 'MMM d, y ' }} </span>
 
                 <div class="temp_container">
-                    <p> H:<b>{{ showTemp(day.temp.max) }}°C</b></p>
+                    <p> H:{{ showTemp(day.temp.max) }}°C</p>
                 </div>
                 <div class="progress_container">
                     <!-- <p>{{ showAverage(day.temp.max, day.temp.min) }}</p> -->
@@ -41,7 +41,7 @@
                 </div>
 
                 <div>
-                    <p> T:<b>{{ showTemp(day.temp.min) }}°C</b> </p>
+                    <p> T:{{ showTemp(day.temp.min) }}°C </p>
                 </div>
 
 
