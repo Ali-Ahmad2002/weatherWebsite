@@ -20,9 +20,14 @@ export class WeatherDataComponent implements OnInit {
   async searchCities(value: any) {
     this.service.currentWeather = [];
     this.service.weeklyWeather = [];
+    this.service.maxTempData = [];
+    this.service.minTempData = [];
+    this.service.avTempData = [];
+    this.service.allDay = [];
     this.service.city = value;
+    this.service.showData();
     await this.service.loadData();
-     // this.chart.showData();
+
   }
 
   showTemp(temp: any) {

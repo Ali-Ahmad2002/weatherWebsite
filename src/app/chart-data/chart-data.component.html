@@ -2,7 +2,7 @@
     <h1>Weather chart</h1>
     <div class="canvas_child">
         <div style="display: block">
-            <canvas class="" baseChart [data]="barChartData" [options]="barChartOptions" [plugins]="barChartPlugins" [type]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+            <canvas class="" baseChart [data]="data.barChartData" [options]="data.barChartOptions" [plugins]="data.barChartPlugins" [type]="data.barChartType" (chartHover)="data.chartHovered($event)" (chartClick)="data.chartClicked($event)">
             </canvas>
         </div>
     </div>
