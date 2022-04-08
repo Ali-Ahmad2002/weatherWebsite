@@ -1,5 +1,6 @@
 import { getLocaleDateFormat, getLocaleDayNames } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { ChartDataComponent } from '../chart-data/chart-data.component';
 import { DataServiceService } from '../data-service.service';
 
 @Component({
@@ -11,21 +12,17 @@ export class WeatherDataComponent implements OnInit {
 
   value = '';
 
-
   constructor(public service: DataServiceService) { }
 
   ngOnInit(): void {
-    this.service.loadCurrentData();
-    this.service.loadWeeklyWeather();
   }
 
   async searchCities(value: any) {
     this.service.currentWeather = [];
     this.service.weeklyWeather = [];
     this.service.city = value;
-
     await this.service.loadData();
-
+     // this.chart.showData();
   }
 
   showTemp(temp: any) {

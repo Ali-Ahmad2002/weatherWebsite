@@ -16,25 +16,41 @@ export class ChartDataComponent implements OnInit {
   constructor(public data: DataServiceService) { }
   arrayData = this.data.weeklyWeather;
 
-  dataIndex: any = [];
+  maxTempData: any = [];
+  minTempData: any = [];
+  avTempData: any = [];
 
   ngOnInit(): void {
-    this.showData()
+    console.log("ChartData")
+    this.showData();
   }
-
-
-
 
   showData() {
-    console.log('WEEKLY', this.data.weeklyWeather);
-    //   for (let i = 0; i < this.arrayData.length; i++) {
-    //     let indexData = this.arrayData[i].daily;
-    //     console.log('INDEX', indexData);
-    //     this.dataIndex = indexData;
-    //   }
+    setTimeout(() => {
+      for (let i = 0; i < this.data.weeklyWeather[0].daily.length; i++) {
+        let maxTemp = this.data.weeklyWeather[0].daily[i].temp.max;
+        let minTemp = this.data.weeklyWeather[0].daily[i].temp.min;
+        let averageTemp = (maxTemp + minTemp) / 2;
+        console.log('WEEKLY', averageTemp.toFixed(2));
+        this.maxTempData.push(this.data.weeklyWeather[0].daily[i].temp.max);
+        this.minTempData.push(this.data.weeklyWeather[0].daily[i].temp.min);
+        this.avTempData.push(averageTemp.toFixed(2));
+      }
+      this.barChartData = {
+        labels: ['Monday', 'Tuesday', 'Wednsday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+        datasets: [
+          {
+            data: [this.maxTempData[0], this.maxTempData[1], this.maxTempData[2], this.maxTempData[3], this.maxTempData[4], this.maxTempData[5], this.maxTempData[6]], label: 'Höchstwert',
+            // backgroundColor: 'blue',
+            // borderColor: 'blue',
+          },
+          { data: [this.avTempData[0], this.avTempData[1], this.avTempData[2], this.avTempData[3], this.avTempData[4], this.avTempData[5], this.avTempData[6]], label: 'Durchschnittswert' },
+          { data: [this.minTempData[0], this.minTempData[1], this.minTempData[2], this.minTempData[3], this.minTempData[4], this.minTempData[5], this.minTempData[6]], label: 'Tiefstwert' }
+        ]
+      };
+    }, 1000);
+
   }
-
-
 
   public barChartOptions: ChartConfiguration['options'] = {
     responsive: true,
@@ -43,7 +59,7 @@ export class ChartDataComponent implements OnInit {
       x: {},
       y: {
         min: -20,
-        max: 50
+        max: 40
       }
     },
     plugins: {
@@ -61,18 +77,7 @@ export class ChartDataComponent implements OnInit {
     // DataLabelsPlugin
   ];
 
-  public barChartData: ChartData<'bar'> = {
-    labels: ['Monday', 'Tuesday', 'Wednsday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-    datasets: [
-      {
-        data: [20, 59, 80, 81, 56, 55, 40], label: 'Höchstwert',
-        // backgroundColor: 'blue',
-        // borderColor: 'blue',
-      },
-      { data: [28, 48, 40, 19, 86, 27, 90], label: 'Durchschnittswert' },
-      { data: [28, 48, 40, 19, 86, 27, 90], label: 'Tiefstwert' }
-    ]
-  };
+  public barChartData!: ChartData<'bar'>;
 
   // events
   public chartClicked({ event, active }: { event?: ChartEvent, active?: {}[] }): void {

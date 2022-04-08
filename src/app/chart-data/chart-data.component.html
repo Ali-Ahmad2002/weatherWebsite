@@ -1,13 +1,9 @@
 <div class="canvas_container">
     <h1>Weather chart</h1>
-    <div>
+    <div class="canvas_child">
         <div style="display: block">
             <canvas class="" baseChart [data]="barChartData" [options]="barChartOptions" [plugins]="barChartPlugins" [type]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
             </canvas>
-        </div>
-        <div *ngFor="let weekly of data.weeklyWeather">
-            <h1> {{ weekly.daily[0].temp.max}} </h1>
-            <button (click)="showData()">show</button>
         </div>
     </div>
 </div>
