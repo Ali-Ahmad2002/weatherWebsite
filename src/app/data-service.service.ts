@@ -58,13 +58,12 @@ export class DataServiceService {
       for (let j = 0; j < this.weeklyWeather[0].daily.length - 1; j++) {
         let currentDate = new Date(this.weeklyWeather[0].daily[j].dt * 1000);
         const cValue = formatDate(currentDate, 'yyyy-MM-dd', 'en-US');
-        // let newDay = new Date();
         console.log('NEWDATE', cValue);
         this.allDay.push(cValue);
         // this.allDay.push(newDay);
       }
       this.barChartData = {
-        labels: [this.allDay[0], 'Tuesday', 'Wednsday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+        labels: [this.allDay[0], this.allDay[1], this.allDay[2], this.allDay[3], this.allDay[4], this.allDay[5], this.allDay[6]],
         datasets: [
           {
             data: [this.maxTempData[0], this.maxTempData[1], this.maxTempData[2], this.maxTempData[3], this.maxTempData[4], this.maxTempData[5], this.maxTempData[6]], label: 'Höchstwert',
