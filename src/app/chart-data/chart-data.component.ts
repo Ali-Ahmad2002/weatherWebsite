@@ -1,156 +1,98 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ChartConfiguration, ChartEvent, ChartType, ChartTypeRegistry, PluginOptionsByType } from 'chart.js';
-import { _DeepPartialObject } from 'chart.js/types/utils';
+import { ChartConfiguration, ChartData, ChartEvent, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
+import { DataServiceService } from '../data-service.service';
 
 @Component({
   selector: 'app-chart-data',
   templateUrl: './chart-data.component.html',
   styleUrls: ['./chart-data.component.scss']
 })
-export class ChartDataComponent {
+export class ChartDataComponent implements OnInit {
 
-  public lineChartData: ChartConfiguration['data'] = {
-    datasets: [
-      {
-        data: [65, 59, 80, 81, 56, 55, 40],
-        label: 'Series A',
-        backgroundColor: 'rgba(148,159,177,0.2)',
-        borderColor: 'rgba(148,159,177,1)',
-        pointBackgroundColor: 'rgba(148,159,177,1)',
-        pointBorderColor: '#fff',
-        pointHoverBackgroundColor: '#fff',
-        pointHoverBorderColor: 'rgba(148,159,177,0.8)',
-        fill: 'origin',
-      },
-      {
-        data: [28, 48, 40, 19, 86, 27, 90],
-        label: 'Series B',
-        backgroundColor: 'rgba(77,83,96,0.2)',
-        borderColor: 'rgba(77,83,96,1)',
-        pointBackgroundColor: 'rgba(77,83,96,1)',
-        pointBorderColor: '#fff',
-        pointHoverBackgroundColor: '#fff',
-        pointHoverBorderColor: 'rgba(77,83,96,1)',
-        fill: 'origin',
-      },
-      {
-        data: [180, 480, 770, 90, 1000, 270, 400],
-        label: 'Series C',
-        yAxisID: 'y-axis-1',
-        backgroundColor: 'rgba(255,0,0,0.3)',
-        borderColor: 'red',
-        pointBackgroundColor: 'rgba(148,159,177,1)',
-        pointBorderColor: '#fff',
-        pointHoverBackgroundColor: '#fff',
-        pointHoverBorderColor: 'rgba(148,159,177,0.8)',
-        fill: 'origin',
-      }
-    ],
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July']
-  };
+  @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
 
-  public lineChartOptions: ChartConfiguration['options'] = {
-    elements: {
-      line: {
-        tension: 0.5
-      }
-    },
+
+  constructor(public data: DataServiceService) { }
+  arrayData = this.data.weeklyWeather;
+
+  dataIndex: any = [];
+
+  ngOnInit(): void {
+    this.showData()
+  }
+
+
+
+
+  showData() {
+    console.log('WEEKLY', this.data.weeklyWeather);
+    //   for (let i = 0; i < this.arrayData.length; i++) {
+    //     let indexData = this.arrayData[i].daily;
+    //     console.log('INDEX', indexData);
+    //     this.dataIndex = indexData;
+    //   }
+  }
+
+
+
+  public barChartOptions: ChartConfiguration['options'] = {
+    responsive: true,
+    // We use these empty structures as placeholders for dynamic theming.
     scales: {
-      // We use this empty structure as a placeholder for dynamic theming.
       x: {},
-      'y-axis-0':
-      {
-        position: 'left',
-      },
-      'y-axis-1': {
-        position: 'right',
-        grid: {
-          color: 'rgba(255,0,0,0.3)',
-        },
-        ticks: {
-          color: 'red'
-        }
+      y: {
+        min: -20,
+        max: 50
       }
     },
-
     plugins: {
-      legend: { display: true },
-      // annotation: {
-      //   annotations: [
-      //     {
-      //       type: 'line',
-      //       scaleID: 'x',
-      //       value: 'March',
-      //       borderColor: 'orange',
-      //       borderWidth: 2,
-      //       label: {
-      //         position: 'center',
-      //         enabled: true,
-      //         color: 'orange',
-      //         content: 'LineAnno',
-      //         font: {
-      //           weight: 'bold'
-      //         }
-      //       }
-      //     },
-      //   ],
+      legend: {
+        display: true,
+      },
+      // datalabels: {
+      //   anchor: 'end',
+      //   align: 'end'
       // }
     }
   };
+  public barChartType: ChartType = 'bar';
+  public barChartPlugins = [
+    // DataLabelsPlugin
+  ];
 
-  public lineChartType: ChartType = 'line';
-
-  @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
-
-  private static generateNumber(i: number): number {
-    return Math.floor((Math.random() * (i < 2 ? 100 : 1000)) + 1);
-  }
-
-  public randomize(): void {
-    for (let i = 0; i < this.lineChartData.datasets.length; i++) {
-      for (let j = 0; j < this.lineChartData.datasets[i].data.length; j++) {
-        this.lineChartData.datasets[i].data[j] = ChartDataComponent.generateNumber(i);
-      }
-    }
-    this.chart?.update();
-  }
+  public barChartData: ChartData<'bar'> = {
+    labels: ['Monday', 'Tuesday', 'Wednsday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+    datasets: [
+      {
+        data: [20, 59, 80, 81, 56, 55, 40], label: 'Höchstwert',
+        // backgroundColor: 'blue',
+        // borderColor: 'blue',
+      },
+      { data: [28, 48, 40, 19, 86, 27, 90], label: 'Durchschnittswert' },
+      { data: [28, 48, 40, 19, 86, 27, 90], label: 'Tiefstwert' }
+    ]
+  };
 
   // events
   public chartClicked({ event, active }: { event?: ChartEvent, active?: {}[] }): void {
-    console.log(event, active);
+    // console.log(event, active);
   }
 
   public chartHovered({ event, active }: { event?: ChartEvent, active?: {}[] }): void {
-    console.log(event, active);
+    // console.log(event, active);
   }
 
-  public hideOne(): void {
-    const isHidden = this.chart?.isDatasetHidden(1);
-    this.chart?.hideDataset(1, !isHidden);
-  }
-
-  public pushOne(): void {
-    this.lineChartData.datasets.forEach((x, i) => {
-      const num = ChartDataComponent.generateNumber(i);
-      x.data.push(num);
-    });
-    this.lineChartData?.labels?.push(`Label ${this.lineChartData.labels.length}`);
-
-    this.chart?.update();
-  }
-
-  public changeColor(): void {
-    this.lineChartData.datasets[2].borderColor = 'green';
-    this.lineChartData.datasets[2].backgroundColor = `rgba(0, 255, 0, 0.3)`;
-
-    this.chart?.update();
-  }
-
-  public changeLabel(): void {
-    if (this.lineChartData.labels) {
-      this.lineChartData.labels[2] = ['1st Line', '2nd Line'];
-    }
+  public randomize(): void {
+    // Only Change 3 values
+    this.barChartData.datasets[0].data = [
+      Math.round(Math.random() * 100),
+      59,
+      80,
+      Math.round(Math.random() * 100),
+      56,
+      Math.round(Math.random() * 100),
+      40];
 
     this.chart?.update();
   }
