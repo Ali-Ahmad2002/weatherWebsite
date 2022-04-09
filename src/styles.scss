@@ -29,3 +29,9 @@ body {
 .mat-form-field-label {
     color: white;
 }
+
+@media(max-width: 1250px) {
+    body {
+        overflow: unset;
+    }
+}

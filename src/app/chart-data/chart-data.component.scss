@@ -13,6 +13,23 @@
 }
 
 .canvas_child {
-    padding: 0 8px;
     width: 100%;
+}
+
+.box_container {
+    padding: 0 10px;
+}
+
+@media(max-width: 1250px) {
+    .canvas_container {
+        height: 30em;
+        justify-content: flex-start;
+        padding-top: 5em;
+        canvas {
+            height: 20em !important;
+        }
+    }
+    .canvas_child {
+        height: 20em;
+    }
 }

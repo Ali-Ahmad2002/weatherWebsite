@@ -27,7 +27,6 @@ export class WeatherDataComponent implements OnInit {
     this.service.city = value;
     this.service.showData();
     await this.service.loadData();
-
   }
 
   showTemp(temp: any) {

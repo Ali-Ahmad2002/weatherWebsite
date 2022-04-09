@@ -1,9 +1,21 @@
 .all_components {
     display: flex;
     app-weather-data {
-        width: 50%;
+        width: 60%;
     }
     app-chart-data {
-        width: 50%;
+        width: 40%;
+    }
+}
+
+@media(max-width: 1250px) {
+    .all_components {
+        flex-direction: column;
+        app-weather-data {
+            width: 100%;
+        }
+        app-chart-data {
+            width: 100%;
+        }
     }
 }

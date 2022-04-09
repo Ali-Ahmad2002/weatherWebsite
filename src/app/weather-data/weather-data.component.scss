@@ -117,3 +117,23 @@
     width: 11%;
     text-align: center;
 }
+
+@media(max-width: 1250px) {
+    .daily_info_container {
+        width: unset;
+        padding-left: 1em;
+        span {
+            font-size: 1em !important;
+            width: unset;
+        }
+        p {
+            font-size: 1em;
+        }
+    }
+    .temp_container {
+        width: unset;
+        p {
+            font-size: 1em;
+        }
+    }
+}
