@@ -118,7 +118,11 @@
     text-align: center;
 }
 
-@media(max-width: 1250px) {
+@media (max-width: 1250px) {
+    .main_container {
+        overflow: unset;
+        height: 80em;
+    }
     .daily_info_container {
         width: unset;
         padding-left: 1em;
