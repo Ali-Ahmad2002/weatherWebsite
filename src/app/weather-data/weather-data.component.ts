@@ -1,6 +1,4 @@
-import { getLocaleDateFormat, getLocaleDayNames } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ChartDataComponent } from '../chart-data/chart-data.component';
 import { DataServiceService } from '../data-service.service';
 
 @Component({

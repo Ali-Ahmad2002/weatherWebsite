@@ -81,7 +81,7 @@ export class DataServiceService {
           }
         ]
       };
-    }, 1000);
+    }, 1250);
   }
 
 
@@ -138,7 +138,6 @@ export class DataServiceService {
 
     this.chart?.update();
   }
-
 
   async loadCurrentData() {
     const response = await this.getCurrentWeather();
