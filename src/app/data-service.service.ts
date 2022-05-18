@@ -1,7 +1,9 @@
 import { formatDate } from '@angular/common';
 import { Injectable, ViewChild } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ChartConfiguration, ChartData, ChartEvent, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
+import { Action } from 'rxjs/internal/scheduler/Action';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +25,9 @@ export class DataServiceService {
   lat: string = '52.5244';
   lon: string = '13.4105';
 
-  constructor() { }
+  constructor(
+    private _snackBar: MatSnackBar
+  ) { }
 
   getCurrentWeather() {
     console.log(this.city);
@@ -141,12 +145,18 @@ export class DataServiceService {
 
   async loadCurrentData() {
     const response = await this.getCurrentWeather();
+    if (response.status == 404) {
+      this._snackBar.open('Sorry, could not find City', undefined, {duration: 2000});
+      return false;
+    }else {
     const responseAsJson = await response.json();
     this.currentWeather.push(responseAsJson);
     this.lat = this.currentWeather[0].coord.lat;
     this.lon = this.currentWeather[0].coord.lon;
     console.log('Current', this.currentWeather);
+    return true;
   }
+}
 
   async loadWeeklyWeather() {
     const response = await this.getWeeklyWeather(this.lat, this.lon);

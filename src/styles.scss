@@ -30,6 +30,17 @@ body {
     color: white;
 }
 
+.mat-snack-bar-container {
+    background-color: #a41515ed;
+}
+
+.mat-simple-snackbar {
+    color: white;
+    font-weight: bolder;
+    font-size: large;
+    justify-content: center !important;
+}
+
 @media(max-width: 1250px) {
     body {
         overflow: unset;

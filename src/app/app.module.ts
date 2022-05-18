@@ -12,6 +12,7 @@ import { AppComponent } from './app.component';
 import { WeatherDataComponent } from './weather-data/weather-data.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ChartDataComponent } from './chart-data/chart-data.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { ChartDataComponent } from './chart-data/chart-data.component';
     FormsModule,
     ReactiveFormsModule,
     MatButtonModule,
-    NgChartsModule
+    NgChartsModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
