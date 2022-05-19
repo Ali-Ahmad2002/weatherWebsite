@@ -26,7 +26,7 @@ export class WeatherDataComponent implements OnInit {
     this.service.showData();
     await this.service.loadData();
   }
-
+ 
   showTemp(temp: any) {
     return temp.toFixed(0);
   }
